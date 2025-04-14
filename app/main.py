@@ -3,7 +3,10 @@ from pydantic import BaseModel
 from typing import Optional
 from datetime import date
 
+from app.bookings.router import router as router_bookings
 app = FastAPI()
+
+app.include_router(router_bookings)
 
 class HotelsSearchArgs:
     def __init__(self,
