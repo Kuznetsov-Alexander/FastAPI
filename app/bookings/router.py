@@ -1,14 +1,16 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
-router = APIRouter(
-    prefix="/bookings",
-    tags=["Бронирования"],
-)
+from app.database import get_async_session
+from app.bookings.models import Bookings
+
+router = APIRouter(prefix="/bookings",
+                   tags=["Bookings"])
 
 @router.get("")
-def get_bookings():
+async def get_bookings(session: AsyncSession = Depends(get_async_session)):
     pass
-
-@router.get("/{booking_id}")
-def get_bookings2(booking_id):
-    pass
+    # stmt = select(Bookings)
+    # result = await session.execute(stmt)
+    # return result.scalars().all()

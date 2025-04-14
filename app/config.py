@@ -22,4 +22,3 @@ class Settings(BaseSettings):
 
 # Глобальный экземпляр настроек
 settings = Settings()
-print(settings.DB_HOST)
