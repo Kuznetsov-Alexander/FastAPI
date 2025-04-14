@@ -9,4 +9,4 @@ router = APIRouter(prefix="/bookings",
 
 @router.get("")
 async def get_bookings(session: AsyncSession = Depends(get_async_session)):
-    return await BookingDAO.find_all(session)
+    return await BookingDAO.find_one_or_none(session, room_id = 3)
