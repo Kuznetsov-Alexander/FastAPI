@@ -6,6 +6,7 @@ from passlib.context import CryptContext
 from pydantic import EmailStr
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.config import settings
 from app.database import get_async_session
 from app.users.dao import UsersDAO
 
@@ -21,7 +22,7 @@ def create_access_token(data: dict) -> str:
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(minutes=30)
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, 'afffssfsf', algorithm='HS256')
+    encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
     return encoded_jwt
 
 async def authenticate_user(email: EmailStr, password: str, session: AsyncSession = Depends(get_async_session)):
